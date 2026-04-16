@@ -42,19 +42,24 @@ class RegistroAcademico:
         """Retorna se o aluno é bolsista."""
         return self._eh_bolsista
 
-    def calcula_mensalidade(self, valor_base: float):
+    def calcula_mensalidade(self, valor_base: float) -> float:
         """
-        Calcula e exibe a mensalidade do aluno.
+        Calcula e retorna a mensalidade do aluno.
         Bolsistas pagam 50% do valor base.
-        @param valor_base: valor cheio da mensalidade
+        @param valor_base: valor cheio da mensalidade (deve ser positivo)
         """
+        if valor_base <= 0:
+            raise ValueError("Valor base da mensalidade deve ser positivo.")
         if self._eh_bolsista:
-            print(f"Mensalidade: {valor_base / 2}")
-        else:
-            print(f"Mensalidade: {valor_base}")
+            return valor_base / 2
+        return valor_base
 
-    def mostra_registro(self):
-        """Exibe os dados do registro acadêmico do aluno."""
-        print(f"Nome: {self._nome_aluno}")
-        print(f"Matricula: {self._numero_matricula}")
-        print(f"Bolsista: {self._eh_bolsista}")
+    def mostra_registro(self) -> dict:
+        """
+        Retorna os dados do registro acadêmico do aluno.
+        """
+        return {
+            "nome": self._nome_aluno,
+            "matricula": self._numero_matricula,
+            "bolsista": self._eh_bolsista,
+        }
