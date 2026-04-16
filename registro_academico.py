@@ -1,24 +1,36 @@
 class RegistroAcademico:
 
     def __init__(self, nome_aluno: str, numero_matricula: int, eh_bolsista: bool):
-        self._nome_aluno = nome_aluno
-        self._numero_matricula = numero_matricula
+        self.nome_aluno = nome_aluno
+        self.numero_matricula = numero_matricula
         self._eh_bolsista = eh_bolsista
 
     @property
     def nome_aluno(self) -> str:
         return self._nome_aluno
 
+    @nome_aluno.setter
+    def nome_aluno(self, valor: str):
+        if not valor or not valor.strip():
+            raise ValueError("Nome do aluno não pode ser vazio.")
+        self._nome_aluno = valor.strip()
+
     @property
     def numero_matricula(self) -> int:
         return self._numero_matricula
+
+    @numero_matricula.setter
+    def numero_matricula(self, valor: int):
+        if valor <= 0:
+            raise ValueError("Número de matrícula deve ser positivo.")
+        self._numero_matricula = valor
 
     @property
     def eh_bolsista(self) -> bool:
         return self._eh_bolsista
 
     def calcula_mensalidade(self, valor_base: float):
-        if self._eh_bolsista == True:
+        if self._eh_bolsista:
             print(f"Mensalidade: {valor_base / 2}")
         else:
             print(f"Mensalidade: {valor_base}")
